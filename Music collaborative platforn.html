@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundSync | Creative Music Collaboration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #6A1BB3;
+            --secondary: #FF6B6B;
+            --accent: #00C9B7;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --gray: #8D99AE;
+            --success: #4ECDC4;
+            --warning: #FFE66D;
+            --gradient-1: linear-gradient(135deg, #8A2BE2 0%, #FF6B6B 100%);
+            --gradient-2: linear-gradient(135deg, #00C9B7 0%, #92FE9D 100%);
+            --gradient-3: linear-gradient(135deg, #6A11CB 0%, #2575FC 100%);
+            --gradient-4: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: transparent;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-1);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 201, 183, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #8A2BE2 0%, #FF6B6B 50%, #00C9B7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-light {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-light:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.8rem;
+            background: var(--gradient-1);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .feature-icon i {
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 8rem 5%;
+            background: rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .projects-filter {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-1);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 1.8rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .project-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .stat i {
+            color: var(--accent);
+        }
+
+        /* Collaboration Tools */
+        .tools {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-3);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .tool-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tool-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.8rem;
+            box-shadow: 0 10px 20px rgba(37, 117, 252, 0.3);
+        }
+
+        .tool-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            background: var(--gradient-4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-4);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.8rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--light);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(26, 26, 46, 0.9);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2.5rem;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: modalAppear 0.4s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--secondary);
+        }
+
+        .modal h2 {
+            margin-bottom: 1.8rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--light);
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .projects-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+
+            .projects-filter {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Floating elements animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Particle background effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float-particle 15s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-wave-square"></i>
+                TuneUp
+            </a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#">Community</a></li>
+            </ul>
+            <div class="user-actions">
+                <button class="btn btn-outline" id="loginBtn">Log In</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="floating">Create Music Together, From Anywhere</h1>
+            <p>TuneUp connects musicians worldwide to collaborate, create, and share their musical projects in real-time with cutting-edge tools and an inspiring community.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Start a Project</button>
+                <button class="btn btn-light">Explore Projects</button>
+                <button class="btn btn-outline">Watch Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Powerful Collaboration Features</h2>
+            <p>Everything you need to create music with others, no matter where they are</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Cloud Storage</h3>
+                <p>Upload and store your tracks securely in the cloud with unlimited storage for all your projects.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Real-time Collaboration</h3>
+                <p>Work simultaneously with other musicians on the same project with live updates and comments.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <h3>High-Quality Audio</h3>
+                <p>Stream and download tracks in lossless quality to ensure your music sounds exactly as intended.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h3>Precise Feedback</h3>
+                <p>Add timestamped comments to specific parts of a track for precise feedback and suggestions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Friendly</h3>
+                <p>Access your projects and collaborate on the go with our fully responsive mobile interface.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure & Private</h3>
+                <p>Control who can access your projects with customizable privacy settings and permissions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-container">
+            <div class="projects-header">
+                <div class="section-title" style="text-align: left; margin-bottom: 0;">
+                    <h2>Featured Projects</h2>
+                    <p>Check out these amazing collaborations from our community</p>
+                </div>
+                <div class="projects-filter">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Rock</button>
+                    <button class="filter-btn">Electronic</button>
+                    <button class="filter-btn">Hip Hop</button>
+                    <button class="filter-btn">Jazz</button>
+                </div>
+            </div>
+            <div class="projects-grid">
+                <!-- Project cards will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaboration Tools -->
+    <section class="tools" id="tools">
+        <div class="section-title">
+            <h2>Integrated Collaboration Tools</h2>
+            <p>Professional tools designed specifically for music collaboration</p>
+        </div>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h3>Audio Editor</h3>
+                <p>Basic editing tools to trim, fade, and adjust your tracks directly in the browser.</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <h3>Project Notes</h3>
+                <p>Keep track of ideas, lyrics, and arrangements with collaborative note-taking.</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3>Task Management</h3>
+                <p>Assign tasks, set deadlines, and track progress on your collaborative projects.</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-file-export"></i>
+                </div>
+                <h3>Export Options</h3>
+                <p>Export your final projects in multiple formats including WAV, MP3, and STEMs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>SoundSync</h3>
+                <p>Creating connections through music collaboration since 2023.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Platform</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Features</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Copyright</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Partnerships</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 SoundSync. All rights reserved. | Creating harmony through collaboration</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLogin">&times;</span>
+            <h2>Log In to SoundSync</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--gray);">Don't have an account? <a href="#" id="switchToSignup" style="color: var(--accent);">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSignup">&times;</span>
+            <h2>Join SoundSync</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">I am a</label>
+                    <select id="signupRole" class="form-control" required>
+                        <option value="">Select your role</option>
+                        <option value="musician">Musician</option>
+                        <option value="producer">Producer</option>
+                        <option value="singer">Singer</option>
+                        <option value="composer">Composer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--gray);">Already have an account? <a href="#" id="switchToLogin" style="color: var(--accent);">Log in</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Sample project data
+        const projects = [
+            {
+                id: 1,
+                title: "Urban Echoes",
+                description: "An experimental electronic track blending ambient sounds with urban rhythms.",
+                genre: "Electronic",
+                collaborators: 4,
+                tracks: 12,
+                likes: 24,
+                image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 2,
+                title: "Desert Highway",
+                description: "A rock anthem with driving guitars and powerful vocals inspired by classic rock.",
+                genre: "Rock",
+                collaborators: 3,
+                tracks: 8,
+                likes: 42,
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 3,
+                title: "Midnight Jazz",
+                description: "Smooth jazz improvisation with saxophone and piano leading the way.",
+                genre: "Jazz",
+                collaborators: 5,
+                tracks: 6,
+                likes: 31,
+                image: "https://images.unsplash.com/photo-1511192336575-5a79af67b7f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2052&q=80"
+            },
+            {
+                id: 4,
+                title: "Neon Dreams",
+                description: "Synthwave track with retro vibes and modern production techniques.",
+                genre: "Electronic",
+                collaborators: 2,
+                tracks: 10,
+                likes: 18,
+                image: "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 5,
+                title: "City Pulse",
+                description: "Hip hop beats with insightful lyrics about urban life and society.",
+                genre: "Hip Hop",
+                collaborators: 3,
+                tracks: 7,
+                likes: 29,
+                image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 6,
+                title: "Acoustic Sessions",
+                description: "Intimate acoustic performances recorded in a living room setting.",
+                genre: "Folk",
+                collaborators: 4,
+                tracks: 5,
+                likes: 37,
+                image: "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            }
+        ];
+
+        // DOM Elements
+        const projectsGrid = document.querySelector('.projects-grid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const closeLogin = document.getElementById('closeLogin');
+        const closeSignup = document.getElementById('closeSignup');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const particlesContainer = document.getElementById('particles');
+
+        // Create floating particles
+        function createParticles() {
+            const particlesCount = 30;
+            
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Render projects
+        function renderProjects(projectsToRender) {
+            projectsGrid.innerHTML = '';
+            
+            projectsToRender.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'project-card';
+                projectCard.innerHTML = `
+                    <div class="project-image">
+                        <img src="${project.image}" alt="${project.title}">
+                        <div class="project-overlay">
+                            <button class="btn btn-primary">View Project</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-meta">
+                            <span>${project.genre}</span>
+                            <span>${project.collaborators} collaborators</span>
+                        </div>
+                        <h3 class="project-title">${project.title}</h3>
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <i class="fas fa-music"></i>
+                                <span>${project.tracks} tracks</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-heart"></i>
+                                <span>${project.likes} likes</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                projectsGrid.appendChild(projectCard);
+            });
+        }
+
+        // Filter projects by genre
+        function filterProjects(genre) {
+            if (genre === 'All') {
+                renderProjects(projects);
+            } else {
+                const filteredProjects = projects.filter(project => project.genre === genre);
+                renderProjects(filteredProjects);
+            }
+        }
+
+        // Initialize with all projects
+        renderProjects(projects);
+        createParticles();
+
+        // Event Listeners
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                // Filter projects
+                filterProjects(button.textContent);
+            });
+        });
+
+        // Modal controls
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+
+        signupBtn.addEventListener('click', () => {
+            signupModal.style.display = 'flex';
+        });
+
+        closeLogin.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        closeSignup.addEventListener('click', () => {
+            signupModal.style.display = 'none';
+        });
+
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            signupModal.style.display = 'flex';
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === signupModal) {
+                signupModal.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login functionality would be implemented here!');
+            loginModal.style.display = 'none';
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Signup functionality would be implemented here!');
+            signupModal.style.display = 'none';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
